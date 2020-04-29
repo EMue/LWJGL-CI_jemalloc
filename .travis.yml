@@ -140,6 +140,9 @@ matrix:
     - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
+    - eval "$(ssh-agent -s)"
+    - chmod 600 .travis/id_rsa_deploy_travis
+    - ssh-add .travis/id_rsa_deploy_travis
     - "CC=powerpc64le-linux-gnu-gcc-4.8 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" ./autogen.sh --host=powerpc64le-linux-gnu --with-lg-page=16 $JEMALLOC_PARAMS"
     - make
     - cd lib
@@ -147,6 +150,19 @@ matrix:
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
     #- "aws s3 cp libjemalloc.so s3://build.lwjgl.org/nightly/linux/ppc64le/libjemalloc.so $S3_PARAMS"
     #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/ppc64le/libjemalloc.so.git $S3_PARAMS"
+    - mkdir -p ../deploy
+    - cp libjemalloc.so ../deploy/libjemalloc.so
+    - cp revision.git ../deploy/libjemalloc.so.git
+    - cd ../deploy
+    - git init
+    - git remote add origin git@github.com:EMue/lwjgl3-bin.git
+    - git fetch origin 0449e44c07e2bdf09e79f21c75a92f7d94b0e496
+    - git checkout 0449e44c07e2bdf09e79f21c75a92f7d94b0e496
+    - git branch ppc64le_nightly_jemalloc
+    - git checkout ppc64le_nightly_jemalloc
+    - git add libjemalloc.so libjemalloc.so.git
+    - git commit -m "Deploy jemalloc from Travis CI."
+    - git push --force origin ppc64le_nightly_jemalloc
 
   # -----------------
   - name: "macOS"
