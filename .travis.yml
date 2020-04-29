@@ -26,6 +26,7 @@ matrix:
     before_install:
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
     - "CC=gcc-4.8 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" LDFLAGS=-Wl,--wrap,memcpy ./autogen.sh $JEMALLOC_PARAMS"
@@ -52,6 +53,7 @@ matrix:
     before_install:
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
     - "CC=arm-linux-gnueabihf-gcc-4.8 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" ./autogen.sh --host=arm-linux-gnueabihf $JEMALLOC_PARAMS"
@@ -79,6 +81,7 @@ matrix:
     before_install:
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
     - "CC=aarch64-linux-gnu-gcc-4.8 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" ./autogen.sh --host=aarch64-linux-gnu $JEMALLOC_PARAMS"
@@ -106,6 +109,7 @@ matrix:
     before_install:
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
     - "CC=mips64el-linux-gnuabi64-gcc-5 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" ./autogen.sh --host=mips64el-linux-gnuabi64 --with-lg-page=14 $JEMALLOC_PARAMS"
@@ -133,6 +137,7 @@ matrix:
     before_install:
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     script:
     - "CC=powerpc64le-linux-gnu-gcc-4.8 CFLAGS=\"-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0\" ./autogen.sh --host=powerpc64le-linux-gnu $JEMALLOC_PARAMS"
@@ -152,6 +157,7 @@ matrix:
 
     before_install:
     - brew update
+    - openssl aes-256-cbc -K $encrypted_3b8cb6da0fbe_key -iv $encrypted_3b8cb6da0fbe_iv -in .travis/id_rsa_deploy_travis.enc -out .travis/id_rsa_deploy_travis -d
 
     install:
     - brew install awscli
